@@ -1,12 +1,16 @@
 import { ItemRow } from "./ItemRow"
 import { ItemDescriptionRow } from "./ItemDescriptionRow"
 
-export const ItemsTable = ({ items, addItem, updateItem, removeItem }) => {
+export const ItemsTable = ({ items, addItem, updateItem, removeItem, pagado }) => {
   return (
     <div className="items-section">
       <h2>Conceptos e Ítems</h2>
 
-      <button className="add-item-btn" onClick={addItem}>
+      <button className="add-item-btn"
+         onClick={addItem}
+         disabled={pagado}
+          style={{ opacity: pagado ? 0.5 : 1 }}
+          >
         + Añadir ítem
       </button>
 
@@ -24,6 +28,7 @@ export const ItemsTable = ({ items, addItem, updateItem, removeItem }) => {
             item={item}
             index={index}
             updateItem={updateItem}
+            pagado={pagado}
           />
 
         </div>

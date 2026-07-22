@@ -309,6 +309,55 @@ h1{
   height: 28px;
 }
 
+/* TOGGLE PAGADO / NO PAGADO */
+.paid-toggle {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  padding: 0px 20px 10px 20px;
+}
+
+.toggle-label {
+  font-weight: 600;
+  color: #1A3CFF;
+}
+
+.toggle-switch {
+  width: 52px;
+  height: 28px;
+  border-radius: 20px;
+  background: #d1d5db;
+  position: relative;
+  cursor: pointer;
+  transition: background 0.25s ease;
+}
+
+.toggle-switch.on {
+  background: #1A3CFF;
+}
+
+.toggle-knob {
+  width: 24px;
+  height: 24px;
+  background: white;
+  border-radius: 50%;
+  position: absolute;
+  top: 2px;
+  left: 2px;
+  transition: transform 0.25s ease;
+}
+
+.toggle-switch.on .toggle-knob {
+  transform: translateX(24px);
+}
+
+.toggle-status {
+  font-size: 14px;
+  font-weight: 600;
+  color: #1A3CFF;
+}
+
+
 /* RESPONSIVE */
 @media (max-width: 1024px) {
   .form-grid-3 {
