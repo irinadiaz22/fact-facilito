@@ -1,0 +1,36 @@
+.overlay {
+  display: none;
+}
+
+.layout {
+  display: flex;
+  min-height: 100vh;
+  background: #f8f9fc; /* gris claro del mockup */
+}
+
+/* Contenido principal */
+.content {
+  flex: 1;
+  padding: 32px;
+  overflow-y: auto;
+  color: #1A3CFF; /* azul del mockup */
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+
+  .overlay{
+    display: block;
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.4);
+    z-index: 2000;
+  }
+  .overlay.hidden {
+    display: none;
+  }
+  .content {
+    padding: 16px;
+  }
+  
+}

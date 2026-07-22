@@ -1,0 +1,67 @@
+.comprobantes-table {
+  margin-top: 30px;
+  background: transparent;
+}
+
+/* Cabecera */
+.table-header {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  background: #f3f4f6;
+  padding: 14px 20px;
+  font-weight: 600;
+  color: #374151;
+  border-radius: 10px;
+}
+
+.table-header span:last-child {
+  text-align: right;
+}
+
+/* Si es presupuesto, añadir columna extra */
+.table-header.presupuesto {
+  grid-template-columns: repeat(5, 1fr);
+}
+
+/* Filas */
+.table-body {
+  margin-top: 10px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.table-row {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  background: white;
+  padding: 16px 20px;
+  border-radius: 10px;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.08);
+  align-items: center;
+}
+
+.table-row span:last-child {
+  text-align: right;
+}
+
+/* Si es presupuesto, añadir columna extra */
+.table-row.presupuesto {
+  grid-template-columns: repeat(5, 1fr);
+}
+
+/* Botón convertir */
+.convert-btn {
+  background: #1A3CFF;
+  color: white;
+  padding: 8px 14px;
+  border-radius: 8px;
+  border: none;
+  cursor: pointer;
+  font-size: 14px;
+  justify-self: end;
+}
+
+.convert-btn:hover {
+  background: #0f2cd9;
+}

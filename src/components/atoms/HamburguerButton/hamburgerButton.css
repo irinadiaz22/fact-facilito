@@ -1,0 +1,28 @@
+.hamburger-btn {
+  display: none;
+  flex-direction: column;
+  gap: 6px;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  padding: 10px;
+  position: fixed;
+  top: 0;
+  left: 18px;
+  z-index: 2000;
+  
+}
+
+.hamburger-btn span {
+  width: 28px;
+  height: 3px;
+  background: #1a3cff;
+  border-radius: 4px;
+  transition: all 0.3s ease;
+}
+
+@media (max-width: 768px) {
+  .hamburger-btn {
+    display: flex;
+  }
+}

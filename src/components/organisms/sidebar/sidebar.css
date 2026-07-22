@@ -1,0 +1,53 @@
+.sidebar {
+  width: 260px;
+  background: #ffffff;
+  border-right: 1px solid #e6e9f2;
+  height: 100vh;
+  padding: 20px 0;
+  display: flex;
+  flex-direction: column;
+  transition: transform 0.3s ease;
+}
+
+/* MODO ESCRITORIO */
+@media (min-width: 769px) {
+  .sidebar {
+    position: static;
+    transform: translateX(0);
+  }
+}
+.sidebar-header {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 0 24px 20px;
+}
+
+.sidebar-logo {
+  width: 36px;
+  height: 36px;
+}
+
+.sidebar-title {
+  font-size: 20px;
+  font-weight: 700;
+  color: #1A3CFF; /* azul corporativo */
+}
+
+/* MODO MÓVIL */
+@media (max-width: 768px) {
+  .sidebar {
+    position: fixed;
+    top: 40px;
+    left: 0;
+    transform: translateX(-100%);
+    z-index: 2500;
+  }
+
+  .sidebar-header{
+    display: none;
+  }
+  .sidebar.open {
+    transform: translateX(0);
+  }
+}
