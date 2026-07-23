@@ -1,0 +1,101 @@
+.form-container-pro {
+  padding: 30px;
+  max-width: 900px;
+  margin: auto;
+  font-family: "Inter", sans-serif;
+}
+
+/* HEADER */
+.form-header-pro {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 25px;
+}
+
+.form-title-pro {
+  font-size: 34px;
+  font-weight: 700;
+  color: #1a3cff;
+  margin: 0;
+}
+
+.form-subtitle-pro {
+  font-size: 22px;
+  font-weight: 600;
+  color: #4b5563;
+  margin-top: 4px;
+}
+
+/* BOTÓN VOZ */
+.voice-btn {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  background: #1a3cff;
+  color: white;
+  padding: 10px 16px;
+  border-radius: 10px;
+  border: none;
+  cursor: pointer;
+  font-size: 15px;
+}
+
+.voice-btn img {
+  width: 22px;
+  height: 22px;
+}
+
+/* GRID */
+.form-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 25px;
+}
+
+/* CAMPOS */
+.form-field-pro {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.form-field-pro label {
+  font-weight: 600;
+  color: #1a3cff;
+}
+
+.form-field-pro input,
+.form-field-pro select {
+  padding: 10px;
+  border-radius: 8px;
+  border: 1px solid #d1d5db;
+  font-size: 14px;
+}
+
+/* BOTONES */
+.form-buttons-pro {
+  margin-top: 30px;
+  display: flex;
+  gap: 12px;
+}
+
+.btn-primary-pro {
+  background: #1a3cff;
+  color: white;
+  padding: 12px 20px;
+  border-radius: 10px;
+  border: none;
+  cursor: pointer;
+  font-size: 15px;
+}
+
+.btn-secondary-pro {
+  background: #e5e7eb;
+  color: #1a3cff;
+  padding: 12px 20px;
+  border-radius: 10px;
+  border: none;
+  cursor: pointer;
+  font-size: 15px;
+}
