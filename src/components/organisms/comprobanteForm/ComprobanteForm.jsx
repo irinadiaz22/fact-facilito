@@ -131,10 +131,12 @@ export const ComprobanteForm = ({ tipo }) => {
         </div>
 
         <div>
+          {tipo === "factura" && (  
           <PaidToggle
             value={form.pagado}
             onChange={(v) => updateField("pagado", v)}
           />
+          )}
 
           <PaymentMethods />
 

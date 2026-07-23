@@ -1,4 +1,4 @@
-export const PaidToggle = ({ value, onChange }) => {
+export const PaidToggle = ({ value, onChange}) => {
   return (
     <div className="paid-toggle">
       <label className="toggle-label">¿Factura pagada?</label>
