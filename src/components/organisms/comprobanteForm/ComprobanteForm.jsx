@@ -10,6 +10,7 @@ import { NotasTextarea } from "./components/NotasTextarea";
 import { Totales } from "./components/Totales";
 import { ActionButtons } from "./components/ActionButtons";
 import { PaymentMethods } from "./components/PaymentMethods";
+import { PaidToggle } from "./components/PaidToggle";
 
 export const ComprobanteForm = ({ tipo }) => {
   const [form, setForm] = useState({
@@ -18,6 +19,7 @@ export const ComprobanteForm = ({ tipo }) => {
     fecha_vencimiento: "",
     numero: "",
     estado: "Pendiente",
+    pagado: false,
     items: [],
     notas: "",
   });
@@ -124,10 +126,18 @@ export const ComprobanteForm = ({ tipo }) => {
             addItem={addItem}
             updateItem={updateItem}
             removeItem={removeItem}
+            pagado={form.pagado}
           />
         </div>
 
         <div>
+          {tipo === "factura" && (  
+          <PaidToggle
+            value={form.pagado}
+            onChange={(v) => updateField("pagado", v)}
+          />
+          )}
+
           <PaymentMethods />
 
           {/* Notas */}

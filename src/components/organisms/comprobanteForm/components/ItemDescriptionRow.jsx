@@ -1,6 +1,6 @@
 import MicroIcon from "../../../../assets/icons/microphene.svg";
 
-export const ItemDescriptionRow = ({ item, index, updateItem }) => {
+export const ItemDescriptionRow = ({ item, index, updateItem, pagado }) => {
   return (
     <div className="item-description-row">
       
@@ -8,9 +8,13 @@ export const ItemDescriptionRow = ({ item, index, updateItem }) => {
         placeholder="Descripción del ítem..."
         value={item.descripcion}
         onChange={(e) => updateItem(index, "descripcion", e.target.value)}
+        disabled={pagado}
+        style={{ opacity: pagado ? 0.5 : 1 }}
       />
 
-      <img src={MicroIcon} className="micro-icon" />
+      {!pagado && 
+      <img src={MicroIcon} className="micro-icon" />}
+      
     </div>
   )
 }

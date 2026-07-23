@@ -17,7 +17,7 @@ export const Sidebar = ({ isOpen }) => {
       <nav className="sidebar-nav">
         <SidebarLink to="/" icon={HomeIcon} label="Inicio" />
         <SidebarLink to="/Comprobantes" icon={FacturaIcon} label="Facturas" />
-        <SidebarLink to="/Comprobantes" icon={PresupuestoIcon} label="Presupuestos" />
+        <SidebarLink to="/Presupuestos" icon={PresupuestoIcon} label="Presupuestos" />
         <SidebarLink to="/Clientes" icon={ClientesIcon} label="Clientes" />
         <SidebarLink to="/Productos" icon={ProductosIcon} label="Productos" />
       </nav>
