@@ -6,7 +6,7 @@
 /* Cabecera */
 .table-header {
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
+  grid-template-columns: repeat(6, 1fr);
   background: #f3f4f6;
   padding: 14px 20px;
   font-weight: 600;
@@ -16,11 +16,6 @@
 
 .table-header span:last-child {
   text-align: right;
-}
-
-/* Si es presupuesto, añadir columna extra */
-.table-header.presupuesto {
-  grid-template-columns: repeat(5, 1fr);
 }
 
 /* Filas */
@@ -33,7 +28,7 @@
 
 .table-row {
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
+  grid-template-columns: repeat(6, 1fr);
   background: white;
   padding: 16px 20px;
   border-radius: 10px;
@@ -43,11 +38,6 @@
 
 .table-row span:last-child {
   text-align: right;
-}
-
-/* Si es presupuesto, añadir columna extra */
-.table-row.presupuesto {
-  grid-template-columns: repeat(5, 1fr);
 }
 
 /* Botón convertir */

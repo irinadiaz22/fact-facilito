@@ -21,7 +21,7 @@ export const ComprobantesTable = ({ tipo }) => {
         <span>CLIENTE</span>
         <span>FECHA</span>
         <span>IMPORTE</span>
-        {tipo === "presupuesto" && <span>ACCIONES</span>}
+        <span>ACCIONES</span>
       </div>
 
       <div className="table-body">

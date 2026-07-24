@@ -8,9 +8,19 @@ export const ComprobanteRow = ({ item, tipo }) => {
       <span>{item.fecha}</span>
       <span>{item.importe}</span>
 
+      <button className="convert-btn">
+          Ver comprobante
+        </button>
+
       {tipo === "presupuesto" && (
         <button className="convert-btn">
           Convertir a Factura
+        </button>
+      )}
+
+      {tipo === "factura" && (
+        <button className="convert-btn">
+          Convertir a PDF
         </button>
       )}
     </div>
