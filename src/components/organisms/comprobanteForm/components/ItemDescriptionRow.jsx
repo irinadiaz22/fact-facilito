@@ -6,7 +6,7 @@ export const ItemDescriptionRow = ({ item, index, updateItem, pagado }) => {
       
       <textarea
         placeholder="Descripción del ítem..."
-        value={item.descripcion}
+        value={item.descripcion || ""}
         onChange={(e) => updateItem(index, "descripcion", e.target.value)}
         disabled={pagado}
         style={{ opacity: pagado ? 0.5 : 1 }}

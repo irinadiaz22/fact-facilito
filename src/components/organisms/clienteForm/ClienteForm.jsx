@@ -1,23 +1,57 @@
 import { useState } from "react";
 import "./clienteForm.css";
+import { useNavigate } from "react-router-dom";
 import MicroIcon from "../../../assets/icons/microphene.svg";
 
 export const ClienteForm = () => {
-  const [cliente, setCliente] = useState({
-    dni: "",
-    nombre: "",
-    apellidos: "",
-    direccion: "",
-    ciudad: "",
-    codigo_postal: "",
-    telefono: "",
-    email: "",
-    fecha_registro: "",
-  });
+  const [cliente, setCliente] = useState([]);
+  const navigate = useNavigate();
+  const [mensaje, setMensaje] = useState("");
 
   const updateField = (field, value) => {
     setCliente({ ...cliente, [field]: value });
   };
+
+  const guardarCliente = async () => {
+  try {
+    const res = await fetch("http://127.0.0.1:8000/clients/", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(cliente),
+    });
+
+    if (!res.ok) {
+      throw new Error("Error al crear cliente");
+    }
+
+    const data = await res.json();
+
+    // Mostrar mensaje
+    setMensaje("Cliente creado correctamente");
+
+    // Limpiar formulario
+    setCliente({
+      dni: "",
+      nombre: "",
+      apellidos: "",
+      direccion: "",
+      ciudad: "",
+      codigo_postal: "",
+      telefono: "",
+      email: "",
+      fecha_registro: ""
+    });
+
+    // Redirigir a la pantalla de clientes después de 1 segundo
+    setTimeout(() => {
+      navigate("/clientes");
+    }, 1000);
+
+  } catch (error) {
+    console.error(error);
+    setMensaje("Error al crear cliente");
+  }
+};
 
   return (
     <div className="form-container-cli">
@@ -124,7 +158,15 @@ export const ClienteForm = () => {
 
       {/*Botones*/}
       <div className="form-buttons-cli">
-        <button className="btn-primary">Guardar Cliente</button>
+        <button className="btn-primary" onClick={guardarCliente}>
+          Guardar Cliente
+        </button>
+        {mensaje && (
+  <p style={{ color: "green", marginTop: "10px" }}>
+    {mensaje}
+  </p>
+)}
+
         <button className="btn-secondary">Cancelar</button>
       </div>
     </div>

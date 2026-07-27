@@ -14,7 +14,8 @@ import { PaidToggle } from "./components/PaidToggle";
 
 export const ComprobanteForm = ({ tipo }) => {
   const [form, setForm] = useState({
-    cliente: "",
+    dni: "",
+    cliente_nombre: "",
     fecha_emision: "",
     fecha_vencimiento: "",
     numero: "",
@@ -22,11 +23,12 @@ export const ComprobanteForm = ({ tipo }) => {
     pagado: false,
     items: [],
     notas: "",
+    forma_pago: "tarjeta",
   });
 
   // Actualizar campos simples
   const updateField = (field, value) => {
-    setForm({ ...form, [field]: value });
+    setForm((prevForm) => ({ ...prevForm, [field]: value }));
   };
 
   // Añadir ítem
@@ -81,9 +83,17 @@ export const ComprobanteForm = ({ tipo }) => {
         {/* Columna 1 */}
         <div className="form-column">
           <ClienteSelect
-            value={form.cliente}
-            onChange={(v) => updateField("cliente", v)}
+            dni={form.dni}
+            onChange={(dni, nombreCompleto) => {
+              updateField("dni", dni);
+              updateField("cliente_nombre", nombreCompleto);
+            }}
           />
+
+          <div className="form-field">
+            <label>Cliente</label>
+            <input type="text" value={form.cliente_nombre} readOnly />
+          </div>
 
           <div className="form-field">
             <label>Número de comprobante</label>
@@ -116,7 +126,7 @@ export const ComprobanteForm = ({ tipo }) => {
           <Totales items={form.items} />
 
           {/* Botones */}
-          <ActionButtons tipo={tipo} />
+          <ActionButtons tipo={tipo} form={form} />
         </div>
 
         {/* Ítems en 2 columnas */}
@@ -131,14 +141,17 @@ export const ComprobanteForm = ({ tipo }) => {
         </div>
 
         <div>
-          {tipo === "factura" && (  
-          <PaidToggle
-            value={form.pagado}
-            onChange={(v) => updateField("pagado", v)}
-          />
+          {tipo === "factura" && (
+            <PaidToggle
+              value={form.pagado}
+              onChange={(v) => updateField("pagado", v)}
+            />
           )}
 
-          <PaymentMethods />
+          <PaymentMethods 
+            value={form.forma_pago}
+            onChange={(metodo) => updateField("forma_pago", metodo)}
+          />
 
           {/* Notas */}
           <NotasTextarea

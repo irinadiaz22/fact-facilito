@@ -47,6 +47,7 @@ h1{
   gap: 20px;
 }
 
+
 .column-3 {
   display: flex;
   flex-direction: column;
@@ -81,6 +82,16 @@ h1{
   border: 1px solid #d1d5db;
   font-size: 14px;
 }
+
+.item-field select {
+  padding: 8px;
+  border-radius: 8px;
+  border: 1px solid #d1d5db;
+  font-size: 14px;
+  background: white;
+  min-width: 180px;
+}
+
 
 /* BOTÓN NUEVO CLIENTE */
 .new-client-btn {

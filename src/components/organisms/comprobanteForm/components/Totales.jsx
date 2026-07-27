@@ -1,19 +1,30 @@
 export const Totales = ({ items }) => {
+  // Calcular totales visuales
+  const subtotal = items.reduce((acc, item) => {
+    const cantidad = Number(item.cantidad) || 0;
+    const precio = Number(item.precio_unitario) || 0;
+    return acc + cantidad * precio;
+  }, 0);
 
-  const subtotal = items.reduce((acc, item) => acc + item.precio, 0)
-  const ivaTotal = items.reduce((acc, item) => acc + (item.precio * item.iva / 100), 0)
-  const total = items.reduce((acc, item) => acc + item.total_linea, 0)
+  const totalIVA = items.reduce((acc, item) => {
+    const cantidad = Number(item.cantidad) || 0;
+    const precio = Number(item.precio_unitario) || 0;
+    const iva = Number(item.iva) || 0;
+    return acc + (cantidad * precio * (iva / 100));
+  }, 0);
+
+  const total = subtotal + totalIVA;
 
   return (
     <div className="totales-section">
-      <h2>Resumen del Comprobante</h2>
+      <h2>Totales</h2>
 
-      <p>Subtotal: €{subtotal.toFixed(2)}</p>
-      <p>IVA total: €{ivaTotal.toFixed(2)}</p>
+      <p>Subtotal: <strong>{subtotal.toFixed(2)} €</strong></p>
+      <p>IVA: <strong>{totalIVA.toFixed(2)} €</strong></p>
 
-      <h3 className="total-final">
-        TOTAL: €{total.toFixed(2)}
-      </h3>
+      <p className="total-final">
+        Total: {total.toFixed(2)} €
+      </p>
     </div>
-  )
-}
+  );
+};

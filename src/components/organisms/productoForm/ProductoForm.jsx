@@ -1,18 +1,46 @@
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import MicroIcon from "../../../assets/icons/microphene.svg";
 import "./productoForm.css";
 
 export const ProductoForm = () => {
-  const [producto, setProducto] = useState({
-    id_producto: "",
-    nombre: "",
-    tipo: "inventario",
-    iva: 21,
-    precio: 0,
-  });
+  const [producto, setProducto] = useState([]);
+  const navigate = useNavigate();
+  const [mensaje, setMensaje] = useState("");
 
   const updateField = (field, value) => {
     setProducto({ ...producto, [field]: value });
+  };
+
+  const guardarProducto = async() => {
+    try {
+      const res = await fetch("http://127.0.0.1:8000/products/", {
+        method: "POST",
+        headers: {"Content-Type": "application/json"},
+        body: JSON.stringify(producto),
+      });
+      if (!res.ok) {
+        throw new Error ("Error al crear el producto");
+      }
+
+      const data = await res.json();
+      setMensaje("Producto creado correctamente");
+
+      setProducto({
+        nombre: "",
+        tipo: "",
+        precio_unitario: 0,
+        iva: 21,
+        fecha_registro: ""
+      });
+
+      setTimeout(() => {
+        navigate("/productos");
+      }, 1000);
+    } catch (error) {
+      console.error(error);
+      setMensaje("Error al crear el producto");
+    }
   };
 
   return (
@@ -82,7 +110,11 @@ export const ProductoForm = () => {
 
       {/* BOTONES */}
       <div className="form-buttons-pro">
-        <button className="btn-primary-cli">Guardar Producto</button>
+        <button className="btn-primary-cli" onClick={guardarProducto}>
+          Guardar Producto</button>
+          {mensaje && (
+            <p style={{color: "green", marginTop: "10px"}}>{mensaje}</p>
+          )}
         <button className="btn-secondary-cli">Cancelar</button>
         
       </div>
