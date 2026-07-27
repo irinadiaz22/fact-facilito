@@ -22,8 +22,9 @@ export const ItemsTable = ({ items, addItem, updateItem, removeItem, pagado }) =
             index={index}
             updateItem={updateItem}
             removeItem={removeItem}
+            pagado={pagado}
           />
-
+          
           <ItemDescriptionRow
             item={item}
             index={index}

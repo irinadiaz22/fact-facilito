@@ -1,6 +1,6 @@
 import './comprobanteRow.css';
 
-export const ComprobanteRow = ({ item, tipo }) => {
+export const ComprobanteRow = ({ item, tipo, onVer }) => {
   return (
     <div className="table-row">
       <span>{item.ref}</span>
@@ -8,7 +8,7 @@ export const ComprobanteRow = ({ item, tipo }) => {
       <span>{item.fecha}</span>
       <span>{item.importe}</span>
 
-      <button className="convert-btn">
+      <button className="convert-btn" onClick={onVer}>
           Ver comprobante
         </button>
 
