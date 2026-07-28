@@ -1,4 +1,4 @@
-import './comprobanteRow.css';
+import "./comprobanteRow.css";
 
 export const ComprobanteRow = ({ item, tipo, onVer }) => {
   return (
@@ -8,21 +8,17 @@ export const ComprobanteRow = ({ item, tipo, onVer }) => {
       <span>{item.fecha}</span>
       <span>{item.importe}</span>
 
-      <button className="convert-btn" onClick={onVer}>
-          Ver comprobante
-        </button>
+      <button className="convert-btn" onClick={onVer} type="button">
+        Editar
+      </button>
 
       {tipo === "presupuesto" && (
-        <button className="convert-btn">
-          Convertir a Factura
-        </button>
+        <button className="convert-btn">Convertir a Factura</button>
       )}
 
       {tipo === "factura" && (
-        <button className="convert-btn">
-          Convertir a PDF
-        </button>
+        <button className="convert-btn">Convertir a PDF</button>
       )}
     </div>
-  )
-}
+  );
+};

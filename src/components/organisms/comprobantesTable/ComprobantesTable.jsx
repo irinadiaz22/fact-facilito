@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { ComprobanteRow } from "../../moleculas/comprobanteRow/ComprobanteRow";
 import "./comprobantesTable.css";
 
-export const ComprobantesTable = ({ tipo }) => {
+export const ComprobantesTable = ({ tipo, onEdit }) => {
   const [comprobantes, setComprobantes] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
@@ -10,7 +10,9 @@ export const ComprobantesTable = ({ tipo }) => {
   useEffect(() => {
     const cargarComprobantes = async () => {
       try {
-        const res = await fetch(`http://127.0.0.1:8000/comprobantes/listar/${tipo}`);
+        const res = await fetch(
+          `http://127.0.0.1:8000/comprobantes/listar/${tipo}`,
+        );
         if (!res.ok) throw new Error("Error cargando comprobantes");
 
         const data = await res.json();
@@ -25,7 +27,8 @@ export const ComprobantesTable = ({ tipo }) => {
     cargarComprobantes();
   }, [tipo]);
 
-  if (loading) return <div className="comprobantes-table">Cargando comprobantes...</div>;
+  if (loading)
+    return <div className="comprobantes-table">Cargando comprobantes...</div>;
   if (error) return <div className="comprobantes-table">Error: {error}</div>;
 
   return (
@@ -48,9 +51,10 @@ export const ComprobantesTable = ({ tipo }) => {
               fecha: new Date(item.fecha_emision).toLocaleDateString("es-ES"),
               importe: `€${item.total.toFixed(2)}`,
               estado: item.estado,
-              id: item.id_comprobante
+              id: item.id_comprobante,
             }}
             tipo={tipo}
+            onVer={() => onEdit?.(item.id_comprobante)}
           />
         ))}
       </div>
