@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import "./comprobanteForm.css";
 
 // Components
@@ -12,19 +12,86 @@ import { ActionButtons } from "./components/ActionButtons";
 import { PaymentMethods } from "./components/PaymentMethods";
 import { PaidToggle } from "./components/PaidToggle";
 
-export const ComprobanteForm = ({ tipo }) => {
-  const [form, setForm] = useState({
-    dni: "",
-    cliente_nombre: "",
-    fecha_emision: "",
-    fecha_vencimiento: "",
-    numero: "",
-    estado: "Pendiente",
-    pagado: false,
-    items: [],
-    notas: "",
-    forma_pago: "tarjeta",
-  });
+const initialFormState = {
+  id_comprobante: null,
+  dni: "",
+  cliente_nombre: "",
+  fecha_emision: "",
+  fecha_vencimiento: "",
+  numero: "",
+  estado: "Pendiente",
+  pagado: false,
+  items: [],
+  notas: "",
+  forma_pago: "tarjeta",
+};
+
+export const ComprobanteForm = ({ tipo, selectedId, onNew }) => {
+  const [form, setForm] = useState(initialFormState);
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState(null);
+
+  useEffect(() => {
+    if (!selectedId) {
+      setForm(initialFormState);
+      setError(null);
+      setLoading(false);
+      return;
+    }
+
+    const cargarComprobante = async () => {
+      setLoading(true);
+      setError(null);
+
+      try {
+        const res = await fetch(
+          `http://127.0.0.1:8000/comprobantes/obtener/${selectedId}`,
+        );
+        if (!res.ok) {
+          throw new Error("No se pudo cargar el comprobante");
+        }
+
+        const data = await res.json();
+
+        setForm({
+          id_comprobante: data.id_comprobante || selectedId,
+          dni: data.dni || data.cliente_dni || "",
+          cliente_nombre: data.cliente_nombre || "",
+          fecha_emision: data.fecha_emision || "",
+          fecha_vencimiento: data.fecha_vencimiento || "",
+          numero: data.numero_documento || data.numero || "",
+          estado: data.estado || "Pendiente",
+          pagado: Boolean(data.pagado),
+          items: Array.isArray(data.detalles)
+            ? data.detalles.map((detalle) => ({
+                id_producto: detalle.id_producto || detalle.producto_id || "",
+                descripcion: detalle.descripcion || "",
+                cantidad: detalle.cantidad || 1,
+                precio_unitario: detalle.precio_unitario || detalle.precio || 0,
+                iva: detalle.iva || 21,
+              }))
+            : [],
+          notas: data.nota || data.notas || "",
+          forma_pago: data.forma_pago || "tarjeta",
+        });
+      } catch (err) {
+        console.error(err);
+        setError(err.message);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    cargarComprobante();
+  }, [selectedId]);
+
+  if (loading) {
+    return <div className="form-container">Cargando comprobante...</div>;
+  }
+
+  if (error) {
+    return <div className="form-container">Error: {error}</div>;
+  }
 
   // Actualizar campos simples
   const updateField = (field, value) => {
@@ -38,12 +105,12 @@ export const ComprobanteForm = ({ tipo }) => {
       items: [
         ...form.items,
         {
-          nombre_producto: "",
+          id_producto: "",
+          descripcion: "",
           cantidad: 1,
           iva: 21,
-          precio: 0,
+          precio_unitario: 0,
           total_linea: 0,
-          descripcion: "",
         },
       ],
     });
@@ -55,8 +122,8 @@ export const ComprobanteForm = ({ tipo }) => {
     items[index][field] = value;
 
     // Recalcular total línea
-    if (["precio", "iva", "cantidad"].includes(field)) {
-      const precio = parseFloat(items[index].precio || 0);
+    if (["precio_unitario", "iva", "cantidad"].includes(field)) {
+      const precio = parseFloat(items[index].precio_unitario || 0);
       const iva = parseFloat(items[index].iva || 0);
       const cantidad = parseFloat(items[index].cantidad || 1);
       items[index].total_linea = cantidad * precio * (1 + iva / 100);
@@ -126,7 +193,7 @@ export const ComprobanteForm = ({ tipo }) => {
           <Totales items={form.items} />
 
           {/* Botones */}
-          <ActionButtons tipo={tipo} form={form} />
+          <ActionButtons tipo={tipo} form={form} onNew={onNew} />
         </div>
 
         {/* Ítems en 2 columnas */}
@@ -148,7 +215,7 @@ export const ComprobanteForm = ({ tipo }) => {
             />
           )}
 
-          <PaymentMethods 
+          <PaymentMethods
             value={form.forma_pago}
             onChange={(metodo) => updateField("forma_pago", metodo)}
           />
