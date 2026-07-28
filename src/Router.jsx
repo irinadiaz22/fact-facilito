@@ -10,8 +10,8 @@ const Router = () => {
         <BrowserRouter>
             <Routes>
                 <Route path="/" element={<MainLayout><Home /></MainLayout>} />
-                <Route path="/comprobantes" element={<MainLayout><Comprobantes tipo="factura" /></MainLayout>} />
-                <Route path="/comprobantes" element={<MainLayout><Comprobantes tipo="presupuesto" /></MainLayout>} />
+                <Route path="/Comprobantes" element={<MainLayout><Comprobantes tipo="factura" /></MainLayout>} />
+                <Route path="/Presupuestos" element={<MainLayout><Comprobantes tipo="presupuesto" /></MainLayout>} />
                 <Route path="/Clientes" element={<MainLayout><Clientes /></MainLayout>} />
                 <Route path="/Productos" element={<MainLayout><Productos /></MainLayout>} />
 

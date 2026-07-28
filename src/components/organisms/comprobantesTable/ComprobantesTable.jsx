@@ -1,35 +1,63 @@
-import { ComprobanteRow } from '../../moleculas/comprobanteRow/ComprobanteRow';
-
+import { useEffect, useState } from "react";
+import { ComprobanteRow } from "../../moleculas/comprobanteRow/ComprobanteRow";
 import "./comprobantesTable.css";
 
-export const ComprobantesTable = ({ tipo }) => {
+export const ComprobantesTable = ({ tipo, onEdit }) => {
+  const [comprobantes, setComprobantes] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
 
-  // Datos hardcodeados por ahora
-  const data = [
-    { ref: "FAC-2024-012", cliente: "Innovatech Solutions", fecha: "15 Oct 2024", importe: "€1,240.00" },
-    { ref: "FAC-2024-011", cliente: "Marta Sánchez", fecha: "13 Oct 2024", importe: "€980.00" },
-    { ref: "FAC-2024-010", cliente: "Talleres Martínez", fecha: "10 Oct 2024", importe: "€1,750.00" },
-    { ref: "PRE-2024-015", cliente: "Global Logistics S.A.", fecha: "09 Oct 2024", importe: "€3,200.00" },
-    { ref: "PRE-2024-014", cliente: "Estudio de Diseño Creativo", fecha: "08 Oct 2024", importe: "€1,850.00" },
-  ]
+  useEffect(() => {
+    const cargarComprobantes = async () => {
+      try {
+        const res = await fetch(
+          `http://127.0.0.1:8000/comprobantes/listar/${tipo}`,
+        );
+        if (!res.ok) throw new Error("Error cargando comprobantes");
+
+        const data = await res.json();
+        setComprobantes(data);
+      } catch (err) {
+        setError(err.message);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    cargarComprobantes();
+  }, [tipo]);
+
+  if (loading)
+    return <div className="comprobantes-table">Cargando comprobantes...</div>;
+  if (error) return <div className="comprobantes-table">Error: {error}</div>;
 
   return (
     <div className="comprobantes-table">
-
       <div className="table-header">
         <span>REFERENCIA</span>
         <span>CLIENTE</span>
         <span>FECHA</span>
         <span>IMPORTE</span>
-        {tipo === "presupuesto" && <span>ACCIONES</span>}
+        <span>ACCIONES</span>
       </div>
 
       <div className="table-body">
-        {data.map((item, index) => (
-          <ComprobanteRow key={index} item={item} tipo={tipo} />
+        {comprobantes.map((item) => (
+          <ComprobanteRow
+            key={item.id_comprobante}
+            item={{
+              ref: item.numero_documento,
+              cliente: `${item.cliente_nombre} ${item.cliente_apellido}`,
+              fecha: new Date(item.fecha_emision).toLocaleDateString("es-ES"),
+              importe: `€${item.total.toFixed(2)}`,
+              estado: item.estado,
+              id: item.id_comprobante,
+            }}
+            tipo={tipo}
+            onVer={() => onEdit?.(item.id_comprobante)}
+          />
         ))}
       </div>
-
     </div>
-  )
-}
+  );
+};

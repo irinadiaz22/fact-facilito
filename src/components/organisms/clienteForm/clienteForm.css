@@ -1,0 +1,102 @@
+.form-container-cli {
+  padding: 30px;
+  max-width: 900px;
+  margin: auto;
+  font-family: "Inter", sans-serif;
+}
+
+.form-header-cli {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 25px;
+}
+
+.voice-btn {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  background: #1a3cff;
+  color: white;
+  padding: 10px 16px;
+  border-radius: 10px;
+  border: none;
+  cursor: pointer;
+  font-size: 18px;
+}
+
+.voice-btn img {
+  width: 22px;
+  height: 22px;
+}
+
+.form-title-cli {
+  display: flex;
+  font-size: 34px;
+  font-weight: 700;
+  color: #1a3cff;
+  margin-bottom: 5px;
+  max-width: 100%;
+}
+
+.form-container-cli h2 {
+  font-size: 28px;
+  font-weight: 600;
+  color: #1a3cff;
+  margin-bottom: 20px;
+}
+
+/* GRID */
+.from-grid-cli {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 25px;
+}
+
+/* CAMPOS */
+.form-field-cli {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  padding: 10px;
+}
+
+.form-field-cli label {
+  font-weight: 600;
+  color: #1a3cff;
+}
+
+.form-field-cli input {
+  padding: 10px;
+  border-radius: 8px;
+  border: 1px solid #d1d5db;
+  font-size: 14px;
+}
+
+/* BOTONES */
+.form-buttons-cli {
+  margin-top: 30px;
+  display: flex;
+  gap: 12px;
+  margin-left: 10px;
+}
+
+.btn-primary-cli {
+  background: #1a3cff;
+  color: white;
+  padding: 12px 20px;
+  border-radius: 10px;
+  border: none;
+  cursor: pointer;
+  font-size: 15px;
+}
+
+.btn-secondary-cli {
+  background: #e5e7eb;
+  color: #1a3cff;
+  padding: 12px 20px;
+  border-radius: 10px;
+  border: none;
+  cursor: pointer;
+  font-size: 15px;
+}

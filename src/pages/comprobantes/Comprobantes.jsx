@@ -1,14 +1,26 @@
+import { useState } from "react";
 import { ComprobantesTable } from "../../components/organisms/comprobantesTable/ComprobantesTable";
-import './comprobantes.css'
+import { ComprobanteForm } from "../../components/organisms/comprobanteForm/ComprobanteForm";
+import "./comprobantes.css";
 
 export const Comprobantes = ({ tipo }) => {
-  const titulo = tipo === "factura" ? "Facturas" : "Presupuestos"
+  const [selectedId, setSelectedId] = useState(null);
+  const titulo =
+    tipo === "factura" ? "Gestión de Facturas" : "Gestión de Presupuestos";
 
   return (
     <div>
-      <h1>{titulo}</h1>
+      <div className="comprobantes-header">
+        <h1>{titulo}</h1>
+      </div>
 
-      <ComprobantesTable tipo={tipo} />
+      <ComprobanteForm
+        tipo={tipo}
+        selectedId={selectedId}
+        onNew={() => setSelectedId(null)}
+      />
+
+      <ComprobantesTable tipo={tipo} onEdit={(id) => setSelectedId(id)} />
     </div>
-  )
-}
+  );
+};
